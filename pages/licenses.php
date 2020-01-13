@@ -38,7 +38,7 @@ if($_SESSION['Member'] == 1 || $_SESSION['Member'] == 2 || $_SESSION['Member'] =
                                         <p><i>NB: Use the name of the player like this: First_Last</i></p>
                                         </form>
                                         <?php
-                                        if(isset($_POST['cname'])) {
+                                        if(!empty($_POST['cname'])) {
                                             $query = $con->prepare("SELECT * from `accounts` WHERE `Username` = ?");
                                             $query->execute(array($_POST['cname']));
                                             if($query->rowCount() > 0)
@@ -104,6 +104,8 @@ if($_SESSION['Member'] == 1 || $_SESSION['Member'] == 2 || $_SESSION['Member'] =
                                             </div>
 
                                             ";
+                                        } else {
+                                            echo "<b><span style='color:red'>Please enter a name!</span></b>";
                                         }
                                         ?>
                                         <div><a href="mdc.php" type="button" class="btn btn-primary">MDC Home</a></div><hr/>

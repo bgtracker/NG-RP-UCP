@@ -40,12 +40,18 @@ if($_SESSION['playeradmin'] < 1337) {
                                         <p><i>NB: Use the name of the player like this: First_Last</i></p>
                                         </form>
                                         <?php
-                                        if(isset($_POST['cname'])) {
+                                        if(!empty($_POST['cname']) && !empty($_POST['reason']) && !empty($_POST['months'])) {
                                             $query = $con->prepare("SELECT * from `accounts` WHERE `Username` = ?");
                                             $query->execute(array($_POST['cname']));
                                             if($query->rowCount() > 0)
                                             {
                                                 $rData = $query->fetch();
+                                            }
+
+                                            if($rData['Online'] == 1) {
+                                                echo "<b><span style='color:red'>You cannot perform this action while the player is online!</span></b>";
+                                                echo '<div><a href="admin.php" type="button" class="btn btn-primary">ACP Home</a></div><hr/>';
+                                                die();
                                             }
 
                                             $date = new DateTime();
@@ -63,6 +69,8 @@ if($_SESSION['playeradmin'] < 1337) {
                                             $query2->execute();
 
                                             echo "<b><span style='color:green'>VIP Level has been adjusted!</span></b>";
+                                        } else {
+                                            echo "<b><span style='color:red'>All fields are required!</span></b>";
                                         }
                                         ?>
                                         <div><a href="admin.php" type="button" class="btn btn-primary">ACP Home</a></div><hr/>

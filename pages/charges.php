@@ -40,12 +40,18 @@ if($_SESSION['Member'] == 1 || $_SESSION['Member'] == 2 || $_SESSION['Member'] =
                                         <p><i>NB: Use the name of the player like this: First_Last</i></p>
                                         </form>
                                         <?php
-                                        if(isset($_POST['cname']) && isset($_POST['crime'])) {
+                                        if(!empty($_POST['cname']) && !empty($_POST['crime'])) {
                                             $query = $con->prepare("SELECT * from `accounts` WHERE `Username` = ?");
                                             $query->execute(array($_POST['cname']));
                                             if($query->rowCount() > 0)
                                             {
                                                 $rData = $query->fetch();
+                                            }
+
+                                            if($rData['Online'] == 1) {
+                                                echo "<b><span style='color:red'>You cannot perform this action while the player is online!</span></b>";
+                                                echo '<div><a href="charges.php" type="button" class="btn btn-primary">Try again</a></div><hr/>';
+                                                die();
                                             }
 
                                             $issuer = $_SESSION['playername'];
@@ -60,6 +66,8 @@ if($_SESSION['Member'] == 1 || $_SESSION['Member'] == 2 || $_SESSION['Member'] =
                                             //var_dump($query2);
 
                                             echo "<b><span style='color:green'>Charge placed successfully!</span></b>";
+                                        } else {
+                                            echo "<b><span style='color:red'>All fields are required!</span></b>";
                                         }
                                         ?>
                                         <div><a href="mdc.php" type="button" class="btn btn-primary">MDC Home</a></div><hr/>

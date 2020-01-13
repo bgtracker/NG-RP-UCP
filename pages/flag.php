@@ -38,12 +38,18 @@ if($_SESSION['playeradmin'] < 2) {
                                         <p><i>NB: Use the name of the player like this: First_Last</i></p>
                                         </form>
                                         <?php
-                                        if(isset($_POST['cname'])) {
+                                        if(!empty($_POST['cname']) && !empty($_POST['flag'])) {
                                             $query = $con->prepare("SELECT * from `accounts` WHERE `Username` = ?");
                                             $query->execute(array($_POST['cname']));
                                             if($query->rowCount() > 0)
                                             {
                                                 $rData = $query->fetch();
+                                            }
+
+                                            if($rData['Online'] == 1) {
+                                                echo "<b><span style='color:red'>You cannot perform this action while the player is online!</span></b>";
+                                                echo '<div><a href="admin.php" type="button" class="btn btn-primary">ACP Home</a></div><hr/>';
+                                                die();
                                             }
 
                                             $account = $rData['id'];
@@ -61,7 +67,9 @@ if($_SESSION['playeradmin'] < 2) {
                                             $query2 =  $con->prepare("INSERT INTO `ucp_logs` (log, admin, against) VALUES ('Flag: ".$reason."', '".$admin."','".$player."')");
                                             $query2->execute();
 
-                                            echo "<b><span style='color:red'>Player flagged successfully!</span></b>";
+                                            echo "<b><span style='color:green'>Player flagged successfully!</span></b>";
+                                        } else {
+                                            echo "<b><span style='color:red'>All fields are required!</span></b>";
                                         }
                                         ?>
                                         <div><a href="admin.php" type="button" class="btn btn-primary">ACP Home</a></div><hr/>

@@ -39,7 +39,12 @@ if(!isset($_SESSION['playername']))
                                         <p><i>NB: No further checks are done, if you've managed to reach this page, pressing Change Password will update it for you!</i></p>
                                         </form>
                                         <?php
-                                        if(isset($_POST['pass'])) {
+                                        if(!empty($_POST['pass'])) {
+
+                                            if($_SESSION['Online'] == 1) {
+                                                echo "<b><span style='color:red'>You cannot perform this action while you're online!</span></b>";
+                                                die();
+                                            }
 
                                             $user = $_SESSION['playername'];
                                             $password = strtoupper(hash("whirlpool", $_POST['pass']));
@@ -49,6 +54,8 @@ if(!isset($_SESSION['playername']))
                                             //var_dump($query2);
 
                                             echo "<b><span style='color:green'>Password successfully! Click <a href='logout.php'>HERE</a> to proceed.</span></b>";
+                                        } else {
+                                        	echo "<b><span style='color:red'>Please enter a password!</span></b>";
                                         }
                                         ?>
                                         <div><a href="index.php" type="button" class="btn btn-primary">Home</a></div><hr/>

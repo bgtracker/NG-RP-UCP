@@ -47,7 +47,7 @@ include 'includes/header.php';
 									</form>
 									<hr/><div>Registering an account through the UCP, automatically gives you 1 month of Bronze VIP & a free phone number!</div>
 										<?php
-										if(isset($_POST['pname']) && isset($_POST['ppass']) && isset($_POST['email']))
+										if(!empty($_POST['pname']) && !empty($_POST['ppass']) && !empty($_POST['email']))
 										{
 											$query1 = $con->prepare("SELECT * FROM `accounts` WHERE Username = '".$_POST['pname']."' ");
 											$query1->execute();
@@ -77,6 +77,8 @@ include 'includes/header.php';
 													//header('Location: login.php');
 													echo "<b><span style='color:green'>Account created! Click <a href='login.php'>HERE</a> to login!</span></b>";
 												}
+											} else {
+												echo "<b><span style='color:red'>All fields are required!</span></b>";
 											}
 										?>
 									

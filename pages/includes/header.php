@@ -53,6 +53,14 @@
                         }
                         ?>
                         <?php
+                        if($_SESSION['Member'] == 1 || $_SESSION['Member'] == 2 || $_SESSION['Member'] == 3 || $_SESSION['Member'] == 7 || $_SESSION['Member'] == 11  || $_SESSION['Member'] == 12 || $_SESSION['Member'] == 13 || $_SESSION['Member'] == 16 || $_SESSION['Member'] == 5 || $_SESSION['Member'] == 4 || $_SESSION['Member'] == 6 || $_SESSION['Member'] == 8 || $_SESSION['Member'] == 9 || $_SESSION['Member'] == 10) {
+                            echo "
+                            <li><a href='../pages/fmembers.php'><i class='fa fa-user fa-fw'></i> Faction Panel</a>
+                            </li><li class='divider'></li>
+                            ";
+                        }
+                        ?>
+                        <?php
                         if($_SESSION['Member'] == 1 || $_SESSION['Member'] == 2 || $_SESSION['Member'] == 3 || $_SESSION['Member'] == 7 || $_SESSION['Member'] == 11  || $_SESSION['Member'] == 12 || $_SESSION['Member'] == 13 || $_SESSION['Member'] == 16 || $_SESSION['Member'] == 5) {
                             echo "
                             <li><a href='../pages/mdc.php'><i class='fa fa-user fa-fw'></i> MDC</a>

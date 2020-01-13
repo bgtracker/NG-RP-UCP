@@ -7,7 +7,7 @@ if($_SESSION['playeradmin'] < 2) {
     header('Location: index.php');
 }
 
-if(isset($_POST['cname'])) {
+if(!empty($_POST['cname'])) {
 $query = $con->prepare("SELECT * from `accounts` WHERE `Username` = ?");
 $query->execute(array($_POST['cname']));
 if($query->rowCount() > 0)

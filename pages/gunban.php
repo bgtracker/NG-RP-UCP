@@ -38,12 +38,18 @@ if($_SESSION['playeradmin'] < 4) {
                                         <p><i>NB: Use the name of the player like this: First_Last</i></p>
                                         </form>
                                         <?php
-                                        if(isset($_POST['cname'])) {
+                                        if(!empty($_POST['cname']) && !empty($_POST['reason'])) {
                                             $query = $con->prepare("SELECT * from `accounts` WHERE `Username` = ?");
                                             $query->execute(array($_POST['cname']));
                                             if($query->rowCount() > 0)
                                             {
                                                 $rData = $query->fetch();
+                                            }
+
+                                            if($rData['Online'] == 1) {
+                                                echo "<b><span style='color:red'>You cannot perform this action while the player is online!</span></b>";
+                                                echo '<div><a href="admin.php" type="button" class="btn btn-primary">ACP Home</a></div><hr/>';
+                                                die();
                                             }
 
                                             $query1 = $con->prepare("UPDATE `accounts` SET GangWarn='0' WHERE `id` = ".$rData['id']."");
@@ -54,10 +60,12 @@ if($_SESSION['playeradmin'] < 4) {
                                             $admin = $_SESSION['playername'];
                                             $player = $rData['Username'];
                                             $reason = $_POST['reason'];
-                                            $query2 =  $con->prepare("INSERT INTO `ucp_logs` (log, admin, against) VALUES ('Gang Ban: ".$reason."', '".$admin."','".$player."')");
+                                            $query2 =  $con->prepare("INSERT INTO `ucp_logs` (log, admin, against) VALUES ('Gang UnBan: ".$reason."', '".$admin."','".$player."')");
                                             $query2->execute();
                                             
                                             echo "<b><span style='color:green'>Player gang unbanned successfully! They can join families again!</span></b>";
+                                        } else {
+                                            echo "<b><span style='color:red'>All fields are required!</span></b>";
                                         }
                                         ?>
                                         <div><a href="admin.php" type="button" class="btn btn-primary">ACP Home</a></div><hr/>

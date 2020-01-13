@@ -21,6 +21,7 @@ if(isset($_POST['pname']) && isset($_POST['ppass']))
 			$_SESSION['playeradmin'] = $data['AdminLevel'];
 			$_SESSION['Email'] = $data['Email'];
 			$_SESSION['uID'] = $data['id'];
+			$_SESSION['Online'] = $data['Online'];
 			//FactionData
 			$_SESSION['Member'] = $data['Member'];
 			$_SESSION['Division'] = $data['Division'];

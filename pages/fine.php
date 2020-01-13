@@ -7,7 +7,6 @@ if($_SESSION['playeradmin'] < 2) {
     header('Location: index.php');
 }
 
-
 ?>
 
                 <div class="row">
@@ -40,7 +39,7 @@ if($_SESSION['playeradmin'] < 2) {
                                         <p><i>NB: Use the name of the player like this: First_Last</i></p>
                                         </form>
                                         <?php
-                                        if(isset($_POST['cname'])) {
+                                        if(!empty($_POST['cname']) && !empty($_POST['amount']) && !empty($_POST['reason'])) {
                                             $query = $con->prepare("SELECT * from `accounts` WHERE `Username` = ?");
                                             $query->execute(array($_POST['cname']));
                                             if($query->rowCount() > 0)
@@ -50,6 +49,12 @@ if($_SESSION['playeradmin'] < 2) {
 
                                             if($rData['AdminLevel'] >= 2) {
                                                 echo "<b><span style='color:red'>You cannot perform this action on an admin!</span></b>";
+                                                echo '<div><a href="admin.php" type="button" class="btn btn-primary">ACP Home</a></div><hr/>';
+                                                die();
+                                            }
+
+                                            if($rData['Online'] == 1) {
+                                                echo "<b><span style='color:red'>You cannot perform this action while the player is online!</span></b>";
                                                 echo '<div><a href="admin.php" type="button" class="btn btn-primary">ACP Home</a></div><hr/>';
                                                 die();
                                             }
@@ -68,7 +73,9 @@ if($_SESSION['playeradmin'] < 2) {
                                             $query2 =  $con->prepare("INSERT INTO `ucp_logs` (log, admin, against) VALUES ('Fine for ".$_POST['amount'].": ".$reason."', '".$admin."','".$player."')");
                                             $query2->execute();
 
-                                            echo "<b><span style='color:red'>Player fined successfully!</span></b>";
+                                            echo "<b><span style='color:green'>Player fined successfully!</span></b>";
+                                        } else {
+                                            echo "<b><span style='color:red'>All fields are required!</span></b>";
                                         }
                                         ?>
                                         <div><a href="admin.php" type="button" class="btn btn-primary">ACP Home</a></div><hr/>

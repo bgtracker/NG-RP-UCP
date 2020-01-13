@@ -38,12 +38,18 @@ if($_SESSION['playeradmin'] < 1338) {
                                         <p><i>NB: Use the name of the player like this: First_Last</i></p>
                                         </form>
                                         <?php
-                                        if(isset($_POST['cname'])) {
+                                        if(!empty($_POST['cname']) && !empty($_POST['reason'])) {
                                             $query = $con->prepare("SELECT * from `accounts` WHERE `Username` = ?");
                                             $query->execute(array($_POST['cname']));
                                             if($query->rowCount() > 0)
                                             {
                                                 $rData = $query->fetch();
+                                            }
+
+                                            if($rData['Online'] == 1) {
+                                                echo "<b><span style='color:red'>You cannot perform this action while the player is online!</span></b>";
+                                                echo '<div><a href="admin.php" type="button" class="btn btn-primary">ACP Home</a></div><hr/>';
+                                                die();
                                             }
 
                                             $query1 = $con->prepare("UPDATE `accounts` SET AdminLevel='0', Disabled='1' WHERE `id` = ".$rData['id']."");
@@ -57,7 +63,9 @@ if($_SESSION['playeradmin'] < 1338) {
                                             $query2 =  $con->prepare("INSERT INTO `ucp_logs` (log, admin, against) VALUES ('Admin FIRED: ".$reason."', '".$admin."','".$player."')");
                                             $query2->execute();
 
-                                            echo "<b><span style='color:red'>Admin has been fired! Do not forget to post in their personnel file!</span></b>";
+                                            echo "<b><span style='color:green'>Admin has been fired! Do not forget to post in their personnel file!</span></b>";
+                                        } else {
+                                            echo "<b><span style='color:red'>All fields are required!</span></b>";
                                         }
                                         ?>
                                         <div><a href="admin.php" type="button" class="btn btn-primary">ACP Home</a></div><hr/>
