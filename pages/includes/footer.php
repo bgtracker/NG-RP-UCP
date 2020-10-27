@@ -1,4 +1,4 @@
-				<footer><p>All right reserved, Los Angeles Roleplay 2013-2020.</p>
+				<footer><p>All right reserved, Next Generation Gaming Network 2013-2020.</p>
 				
         
 				</footer>
