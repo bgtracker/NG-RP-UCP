@@ -2,6 +2,7 @@
 include 'includes/config.php'; 
 include 'includes/header.php';
 checkForLogin();
+$_SESSION['last_action'] = time();
 ?>
                 <div class="row">
                     <div class="col-md-12">

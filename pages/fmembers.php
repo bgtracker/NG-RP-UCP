@@ -2,6 +2,7 @@
 include 'includes/config.php'; 
 include 'includes/header.php';
 checkForLogin();
+$_SESSION['last_action'] = time();
 
 if($_SESSION['Member'] < 1) {
     header('Location: index.php');

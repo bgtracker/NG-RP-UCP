@@ -2,6 +2,7 @@
 include 'includes/config.php'; 
 include 'includes/header.php';
 checkForLogin();
+$_SESSION['last_action'] = time();
 
 if($_SESSION['Member'] == 1 || $_SESSION['Member'] == 2 || $_SESSION['Member'] == 3 || $_SESSION['Member'] == 7 || $_SESSION['Member'] == 11  || $_SESSION['Member'] == 12 || $_SESSION['Member'] == 13 || $_SESSION['Member'] == 16 || $_SESSION['Member'] == 5) {
 	

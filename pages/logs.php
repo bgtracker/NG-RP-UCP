@@ -2,6 +2,7 @@
 include 'includes/config.php'; 
 include 'includes/header.php';
 checkForLogin();
+$_SESSION['last_action'] = time();
 
 if($_SESSION['playeradmin'] < 1338) {
 	header('Location: index.php');
@@ -27,7 +28,7 @@ if($_SESSION['playeradmin'] < 1338) {
                                     <div><i><span style="color:red">NB: Pushing the CLEAR LOG button deletes all entries from the log!</span></i></div>
                                     <hr/>
                                     <?php
-                                        $sql = 'SELECT log, admin, against FROM `ucp_logs` ORDER BY id';
+                                        $sql = 'SELECT log, admin, against, date FROM `ucp_logs` ORDER BY id';
                                         $q = $con->query($sql);
                                         $q->setFetchMode(PDO::FETCH_ASSOC);
                                     ?>
@@ -37,6 +38,7 @@ if($_SESSION['playeradmin'] < 1338) {
                                             <th>Info</th>
                                             <th>Admin</th>
                                             <th>Against</th>
+                                            <th>Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -45,6 +47,7 @@ if($_SESSION['playeradmin'] < 1338) {
                                                 <td><?php echo htmlspecialchars($row['log']) ?></td>
                                                 <td><?php echo htmlspecialchars($row['admin']); ?></td>
                                                 <td><?php echo htmlspecialchars($row['against']); ?></td>
+                                                <td><?php echo htmlspecialchars($row['date']); ?></td>
                                             </tr>
                                         <?php endwhile; ?>
                                     </tbody>

@@ -2,6 +2,7 @@
 include 'includes/config.php'; 
 include 'includes/header.php';
 checkForLogin();
+$_SESSION['last_action'] = time();
 
 $query = $con->prepare("SELECT * from `accounts`");
 $query->execute();
