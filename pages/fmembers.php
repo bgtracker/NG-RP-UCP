@@ -30,7 +30,7 @@ if($_SESSION['Member'] == 1) {
 } else if($_SESSION['Member'] == 10) {
     $ftext = "Taxi Company";
 } else if($_SESSION['Member'] == 11) {
-    $ftext = "Los Angeles National Guard";
+    $ftext = "United States Army";
 } else if($_SESSION['Member'] == 12) {
     $ftext = "Mexico";
 } else if($_SESSION['Member'] == 13) {
@@ -63,7 +63,10 @@ if($_SESSION['Member'] == 1) {
                                     ?>
                                     </div>
                                     <hr/>
-                                    <div><b>Bold</b> = Player is currently online!</div>
+                                    <b>Legend: </b>
+                                    <div><img src="..\assets\img\online.png" height="16" width="16"> = Player is currently online!</div>
+                                    <div><img src="..\assets\img\offline.png" height="16" width="16"> = Player is currently offline!</div>
+                                    <hr/>
                                     <?php
                                         $sql = 'SELECT Username, Member, Division, Rank, Leader, Online FROM `accounts` WHERE `Member`='.$_SESSION['Member'].' ORDER BY Rank';
                                         $q = $con->query($sql);
@@ -354,39 +357,72 @@ if($_SESSION['Member'] == 1) {
                                             $row['Division'] = "T&R";
                                         } 
 
-                                        //LANG RANKS
+                                        //USA RANKS
                                         if($row['Member'] == 11 && $row['Rank'] == 0) {
                                             $row['Rank'] = "Private";
                                         } else if($row['Member'] == 11 && $row['Rank'] == 1) {
-                                            $row['Rank'] = "Corporal";
+                                            $row['Rank'] = "Private First Class";
                                         } else if($row['Member'] == 11 && $row['Rank'] == 2) {
-                                            $row['Rank'] = "Sergeant";
+                                            $row['Rank'] = "Specialist";
                                         } else if($row['Member'] == 11 && $row['Rank'] == 3) {
-                                            $row['Rank'] = "Lieutenant";
+                                            $row['Rank'] = "Corporal";
                                         } else if($row['Member'] == 11 && $row['Rank'] == 4) {
-                                            $row['Rank'] = "Captain";
+                                            $row['Rank'] = "Sergeant";
                                         } else if($row['Member'] == 11 && $row['Rank'] == 5) {
-                                            $row['Rank'] = "Major";
+                                            $row['Rank'] = "Staff Sergeant";
                                         } else if($row['Member'] == 11 && $row['Rank'] == 6) {
+                                            $row['Rank'] = "Sergeant F.C.";
+                                        } else if($row['Member'] == 11 && $row['Rank'] == 7) {
+                                            $row['Rank'] = "Master Sergeant";
+                                        } else if($row['Member'] == 11 && $row['Rank'] == 8) {
+                                            $row['Rank'] = "First Sergeant";
+                                        } else if($row['Member'] == 11 && $row['Rank'] == 9) {
+                                            $row['Rank'] = "Sergeant Major";
+                                        } else if($row['Member'] == 11 && $row['Rank'] == 10) {
+                                            $row['Rank'] = "CMD Sgt. Major";
+                                        } else if($row['Member'] == 11 && $row['Rank'] == 11) {
+                                            $row['Rank'] = "Sgt. Maj. of the Army";
+                                        } else if($row['Member'] == 11 && $row['Rank'] == 12) {
+                                            $row['Rank'] = "Second Lieutenant";
+                                        } else if($row['Member'] == 11 && $row['Rank'] == 13) {
+                                            $row['Rank'] = "First Lieutenant";
+                                        } else if($row['Member'] == 11 && $row['Rank'] == 14) {
+                                            $row['Rank'] = "Captain";
+                                        } else if($row['Member'] == 11 && $row['Rank'] == 15) {
+                                            $row['Rank'] = "Major";
+                                        } else if($row['Member'] == 11 && $row['Rank'] == 16) {
+                                            $row['Rank'] = "Lieutenant Colonel";
+                                        } else if($row['Member'] == 11 && $row['Rank'] == 17) {
+                                            $row['Rank'] = "Colonel";
+                                        } else if($row['Member'] == 11 && $row['Rank'] == 18) {
+                                            $row['Rank'] = "Brigadier General";
+                                        } else if($row['Member'] == 11 && $row['Rank'] == 19) {
+                                            $row['Rank'] = "Major General";
+                                        } else if($row['Member'] == 11 && $row['Rank'] == 20) {
+                                            $row['Rank'] = "Lieutenant General";
+                                        } else if($row['Member'] == 11 && $row['Rank'] == 21) {
                                             $row['Rank'] = "General";
+                                        } else if($row['Member'] == 11 && $row['Rank'] == 22) {
+                                            $row['Rank'] = "General of the Army";
                                         }
+
                                         //DIVISIONS
                                         if($row['Member'] == 11 && $row['Division'] == 0) {
-                                            $row['Division'] = "GD";
+                                            $row['Division'] = "Enlisted";
                                         } else if($row['Member'] == 11 && $row['Division'] == 1) {
-                                            $row['Division'] = "AIR";
+                                            $row['Division'] = "USAAF";
                                         } else if($row['Member'] == 11 && $row['Division'] == 2) {
-                                            $row['Division'] = "ARM";
+                                            $row['Division'] = "USACIDC";
                                         } else if($row['Member'] == 11 && $row['Division'] == 3) {
                                             $row['Division'] = "VET";
                                         } else if($row['Member'] == 11 && $row['Division'] == 4) {
-                                            $row['Division'] = "AIR SF";
+                                            $row['Division'] = "USN";
                                         } else if($row['Member'] == 11 && $row['Division'] == 5) {
-                                            $row['Division'] = "LANGA";
+                                            $row['Division'] = "USMA";
                                         } else if($row['Member'] == 11 && $row['Division'] == 6) {
-                                            $row['Division'] = "INF";
+                                            $row['Division'] = "USMC";
                                         } else if($row['Member'] == 11 && $row['Division'] == 7) {
-                                            $row['Division'] == "CM";
+                                            $row['Division'] == "CMD";
                                         }
 
                                         //MEXICO RANKS
@@ -425,8 +461,10 @@ if($_SESSION['Member'] == 1) {
                                                     <?php 
 
                                                     if($row['Online'] == 1) {
-                                                        echo "<b>".htmlspecialchars($row['Username'])."</b>";
+                                                        echo '<img src="..\assets\img\online.png" height="16" width="16">';
+                                                        echo htmlspecialchars($row['Username']);
                                                     } else {
+                                                        echo '<img src="..\assets\img\offline.png" height="16" width="16">';
                                                         echo htmlspecialchars($row['Username']);
                                                     }
 
