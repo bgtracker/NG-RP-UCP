@@ -14,7 +14,7 @@ $expireAfter = 15; // 15 Minutes
 
 	        session_unset();
 	        session_destroy();
-	        header("Location: login.php");
+	        header("Location: ..\login.php");
 	    }
 	}
 
